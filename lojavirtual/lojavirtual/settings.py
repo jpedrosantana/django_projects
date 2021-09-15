@@ -68,7 +68,9 @@ TEMPLATES = [
     },
 ]
 
-TEMPLATE_DIRS=(os.path.join(BASE_DIR, 'templates'))
+TEMPLATE_DIRS=(
+    os.path.join(BASE_DIR, 'templates'),
+    )
 
 WSGI_APPLICATION = 'lojavirtual.wsgi.application'
 
@@ -127,5 +129,31 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATICFILES_DIRS=(os.path.join(BASE_DIR,'static')) #armazenando arquivos estaticos
+STATICFILES_DIRS=(
+    os.path.join(BASE_DIR,'static'),
+    ) #armazenando arquivos estaticos
 STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles') #arquivos estaticos do projeto no momento de distribuir a aplicacao para um webserver
+
+LOGGING={
+    'version':1,
+    'disable_existing_loggers': False,
+    'formatters':{
+        'simple':{
+            'format': 'Mensagem: %(levelname)s%(message)s'
+        },
+    },
+    'handlers':{
+        'console':{
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+    },
+    'loggers':{
+        'lojavirtual':{
+            'handlers':['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
