@@ -1,21 +1,5 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <title>Testando bootstrap para criar template</title>
-</head>
-<body>
-    <h1>Teste do bootstrap</h1>
-    <!-- jQuery Propper.js e Bootstrap JS-->
-    <script src="{% static 'js/jquery.min.js'%}"> </script>
-
-    <script src="{% static 'js/propper.min.js'%}"></script>
-
-    <script src="{% static 'js/bootstrap.min.js'%}"></script>
-    
-</body>
-</html>
+{% extends "base.html"%}
+{% block conteudo %}
+<h2>Início</h2>
+<p>Você está na página principal</p>
+{%endblock conteudo%}

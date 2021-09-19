@@ -157,3 +157,6 @@ LOGGING={
         },
     },
 }
+
+EMAIL_FALE_CONOSCO='2004444@aluno.univesp.br' #constante para especificar o endereço de email que receberá os emails da aplicação
+EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend' #classe que gerencia os emails da aplicação
