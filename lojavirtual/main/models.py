@@ -16,6 +16,10 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nome
 
+    def get_absolute_url(self):
+        return reverse('main:listar_produtos_por_categoria', args=[self.slug]) #namespace main usado para especificar a origem
+        #reverse traduz o nome de uma view por ela mapeada
+
 class Produto(models.Model):
     categoria=models.ForeignKey(Categoria, related_name='produtos',null=True, on_delete=models.CASCADE) #relacionamento um para muitos
     nome=models.CharField(max_length=100, db_index=True)
@@ -34,3 +38,6 @@ class Produto(models.Model):
 
     def __str__(self):
         return self.nome
+
+    def get_absolute_urls(self):
+        return reverse('main:detalhes_produto', args=[self.slug])
