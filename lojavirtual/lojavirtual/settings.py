@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
+    'carrinho.apps.CarrinhoConfig',
 ]
 
 MIDDLEWARE = [
@@ -164,3 +165,5 @@ EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend' #classe que geren
 #Em produção é praxe usar um servidor web para entregar conteúdos estáticos
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'imagens-produtos')
+
+ID_CARRINHO = 'carrinho' #identificador da sessão
