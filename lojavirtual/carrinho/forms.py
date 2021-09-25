@@ -6,7 +6,7 @@ for i in range(1,50):
 
 class FormAdicionarProdutoAoCarrinho(forms.Form):
     quantidade = forms.TypedChoiceField( #controle drop-down com as quantidades
-        choides=OPCOES_QUANTIDADE_PRODUTO, coerce=int #valor convertido para inteiro (propriedade coerce)
+        choices=OPCOES_QUANTIDADE_PRODUTO, coerce=int #valor convertido para inteiro (propriedade coerce)
     )
     atualizar = forms.BooleanField(required=False, widget=forms.HiddenInput)
 

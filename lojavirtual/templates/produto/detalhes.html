@@ -33,6 +33,11 @@ Produtos
                                 </a>
                             </h6>
                             <p class='text-muted'>R$ {{produto.preco}}</p>
+                            <form action='{% url "carrinho:adicionar_ao_carrinho" produto.id%}' method='post'>
+                                {{form_produto_carrinho}}
+                                {%csrf_token%}
+                                <input type='submit' value='Adicionar ao carrinho'>
+                            </form>
                             <p>{{produto.descricao|safe|linebreaksbr}}</p> <!--tags precedidas por | são filtro de template-->
                         </div>
                         </div>

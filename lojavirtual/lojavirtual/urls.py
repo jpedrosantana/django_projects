@@ -25,6 +25,7 @@ urlpatterns = [
     path('ajuda/', TemplateView.as_view(template_name='ajuda.html'), name='ajuda'),
     path('fale-conosco/', views.ViewFaleConosco.as_view(), name='fale_conosco'),
     #path("", TemplateView.as_view(template_name='index.html'), name='index'), #o django entende a string vazia como um mapeamento para a pagina principal do projeto
+    path('carrinho', include('carrinho.urls', namespace='carrinho')),
     path('', include('main.urls', namespace='main')) #urls genéricas
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -15,19 +15,20 @@ class Carrinho:
     def adicionar(self, produto, quantidade=1, atualizar_quantidade=False):
         id_produto = str(produto.id) #str pois o Django usa JSON para serializar os dados
         if id_produto not in self.__carrinho: #se o produto não estiver no carrinho, inicia com qte zerada
-            self._carrinho[id_produto] = {
+            self.__carrinho[id_produto] = {
                 'quantidade': 0,
                 'preco': str(produto.preco),
             }
         if atualizar_quantidade:
-            self.__carrinho['id_produto']['quantidade'] = quantidade
+            self._Carrinho__carrinho[id_produto]['quantidade'] = quantidade
         else:
-            self.__carrinho['id_produto']['quantidade'] += quantidade
+            self._Carrinho__carrinho[id_produto]['quantidade'] += quantidade
         self.__salvar()
 
     def __salvar(self):
         self.__sessao[settings.ID_CARRINHO] = self.__carrinho #grava dados do carrinho na sessão
-        self.__sessao.modified = True #informa ao django que a sessão sofreu modificação e deve ser salva
+        self.__sessao.__alterada = True
+        #self.__sessao.modified = True #informa ao django que a sessão sofreu modificação e deve ser salva
 
     def remover(self, produto):
         id_produto = str(produto.id)

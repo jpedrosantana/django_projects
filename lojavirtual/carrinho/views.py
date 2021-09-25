@@ -14,8 +14,8 @@ def adicionar_ao_carrinho(request, id_produto):
     if form.is_valid():
         dados = form.cleaned_data
         carrinho.adicionar(produto = produto,
-            quantidade = dados['quantidade'],
-            atualizar_quantidade=dados['atualizar'])
+        quantidade = dados['quantidade'],
+        atualizar_quantidade=dados['atualizar'])
     return redirect('carrinho:detalhes_carrinho') #redirect redireciona para outra view
     #no redirecionamento os dados são preservados
 
