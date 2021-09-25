@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from main import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +26,5 @@ urlpatterns = [
     path('fale-conosco/', views.ViewFaleConosco.as_view(), name='fale_conosco'),
     #path("", TemplateView.as_view(template_name='index.html'), name='index'), #o django entende a string vazia como um mapeamento para a pagina principal do projeto
     path('', include('main.urls', namespace='main')) #urls genéricas
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

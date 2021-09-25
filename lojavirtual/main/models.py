@@ -39,5 +39,5 @@ class Produto(models.Model):
     def __str__(self):
         return self.nome
 
-    def get_absolute_urls(self):
+    def get_absolute_url(self):
         return reverse('main:detalhes_produto', args=[self.slug])

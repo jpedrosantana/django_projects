@@ -158,5 +158,9 @@ LOGGING={
     },
 }
 
-EMAIL_FALE_CONOSCO='2004444@aluno.univesp.br' #constante para especificar o endereço de email que receberá os emails da aplicação
+EMAIL_FALE_CONOSCO='email@teste.com.br' #constante para especificar o endereço de email que receberá os emails da aplicação
 EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend' #classe que gerencia os emails da aplicação
+
+#Em produção é praxe usar um servidor web para entregar conteúdos estáticos
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'imagens-produtos')

@@ -23,13 +23,22 @@ def listar_produtos(request, slug_categoria=None):
     if slug_categoria:
         categoria=get_object_or_404(Categoria, slug=slug_categoria)
         lista_produtos = Produto.objects.filter(categoria=categoria)
-        contexto={
+    contexto={
             'categoria': categoria,
             'lista_categorias': lista_categorias,
             'lista_produtos': lista_produtos,
         }
+    return render(request, 'produto/listar.html', contexto)
 
-    return render(request, 'prouto/listar.html', contexto)
+
+def detalhes_produto(request, slug_produto):
+    produto=get_object_or_404(Produto, slug=slug_produto, disponivel=True)
+    contexto = {
+        'produto': produto,
+    }
+    return render(request, 'produto/detalhes.html', contexto)
+
+"""
 
 def detalhes_produto(request, id, slug_produto):
     produto=get_object_or_404(Produto, id=id, slug=slug_produto, disponivel=True)
@@ -37,3 +46,4 @@ def detalhes_produto(request, id, slug_produto):
         'produto': produto,
     }
     return render(request, 'produto/detalhes.html', contexto)
+"""
