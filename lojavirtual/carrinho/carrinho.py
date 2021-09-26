@@ -32,7 +32,7 @@ class Carrinho:
 
     def remover(self, produto):
         id_produto = str(produto.id)
-        if produto.id in self.__carrinho:
+        if id_produto in self.__carrinho:
             del self.__carrinho[id_produto]
             self.__salvar()
 

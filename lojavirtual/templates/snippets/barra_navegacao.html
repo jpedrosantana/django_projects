@@ -20,6 +20,20 @@
                     Ajuda
                 </a>
             </li>
+            <li class='nav-item'>
+                {% with quantidade_itens=carrinho|length %}
+                {% if carrinho|length > 0 %}
+                Seu carrinho de compras:
+                <a class='nav-link text-light'
+                    href='{% url "carrinho:detalhes_carrinho" %}'>
+                    {{quantidade_itens}} produto{{quantidade_itens|pluralize}} - <!--filtro que coloca 'produto' no plural-->
+                    R$ {{carrinho.get_total_geral}}
+                </a>
+                {%else%}
+                Seu carrinho está vazio.
+                {%endif%}
+                {% endwith %}
+            </li>
         </ul>
     </div>
 </nav>

@@ -62,10 +62,11 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.debug', #guarda as variáveis booleana debug e sql_queries
+                'django.template.context_processors.request', #guarda a requisição no contexto, permitindo que o objeto de request seja acessado em qualquer lugar da aplicação
+                'django.contrib.auth.context_processors.auth', #guarda a variável user
+                'django.contrib.messages.context_processors.messages', #guarda uma variavel messages no contexto, gerenciando as mensagens dos usuários
+                'carrinho.context_processors.carrinho',
             ],
         },
     },
