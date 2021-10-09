@@ -36,7 +36,8 @@ class Pedido(models.Model):
 class ItemPedido(models.Model):
     pedido = models.ForeignKey(Pedido, related_name='itens', on_delete=models.CASCADE)
     produto = models.ForeignKey(Produto, related_name='itens_pedido', on_delete=models.CASCADE)
-    preco = models.DecimalField(max_digits=10, decimal_places=2)
+    #preco = models.DecimalField(max_digits=10, decimal_places=2)
+    preco = models.FloatField()
     quantidade = models.PositiveIntegerField(default=1)
 
     def __str__(self):

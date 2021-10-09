@@ -2,6 +2,6 @@ from django.urls import path
 from . import views
 
 app_name = 'pedidos'
-urlpattens = [
+urlpatterns = [
     path('criar/', views.criar_pedido, name='criar_pedido')
 ]

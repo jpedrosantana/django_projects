@@ -51,7 +51,7 @@ class Carrinho:
         resultado = 0
         for item in self.__carrinho.values():
             resultado += item['quantidade']
-        return resultado
+        return int(resultado)
 
     def get_total_geral(self): #soma os subtotais dos produtos
         resultado = Decimal(0.0)
@@ -63,10 +63,5 @@ class Carrinho:
     def limpar_carrinho(self):
         del self.__sessao[settings.ID_CARRINHO]
         self.__salvar()
-'''
-    def limpar_carrinho(self):
-        for key in request.session.keys():
-            del request.session[key]
-            request.session.modified = True
-'''
+
     
