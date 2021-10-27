@@ -32,6 +32,7 @@ def index(request):
 
 class BookListView(generic.ListView):
     model = Book #view genérica consulta no banco de dados o modelo
+    paginate_by = 10
 
 class BookDetailView(generic.DetailView):
     model = Book
