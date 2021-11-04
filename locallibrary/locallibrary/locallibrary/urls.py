@@ -19,6 +19,7 @@ from django.urls import path
 from django.views.generic import RedirectView
 from django.conf.urls.static import static #habilita veiculacao de arquivos estaticos
 from django.conf import settings 
+from catalog import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +29,5 @@ urlpatterns += [
     path('catalog/', include('catalog.urls')),
     path('', RedirectView.as_view(url='/catalog/', permanent=True)),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('register/', views.register_requests, name='register'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

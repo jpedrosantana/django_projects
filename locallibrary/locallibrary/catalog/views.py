@@ -1,7 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from catalog.models import Book, Author, BookInstance, Genre #importa as classes
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.contrib.auth import login
+from django.contrib import messages
+from .forms import NewUserForm
 
 # Create your views here.
 def index(request):
@@ -30,6 +34,18 @@ def index(request):
 
     #Render the HTML template index.html with data in the context variable
     return render(request, 'index.html', context=context)
+
+def register_requests(request):
+    if request.method == 'POST':
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Registration successful.")
+            return redirect("index")
+        messages.error(request, "Unsuccessful registration. Invalid information.")
+    form = NewUserForm()
+    return render(request = request, template_name='register.html', context={'register_form': form})
 
 class BookListView(generic.ListView):
     model = Book #view genérica consulta no banco de dados o modelo
