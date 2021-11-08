@@ -20,6 +20,8 @@
         <p>{{book.summary}}</p>
     {% endfor %}
 
+    <li><a href="{% url 'author_delete' author.pk %}">Author Delete</a></li>
+    <li><a href="{% url 'author_update' author.pk %}">Author Update</a></li>
 </div>
 
 {% endblock %}

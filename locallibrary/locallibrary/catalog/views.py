@@ -1,11 +1,19 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from catalog.models import Book, Author, BookInstance, Genre #importa as classes
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.contrib.auth import login
 from django.contrib import messages
-from .forms import NewUserForm
+from .forms import CreateBookForm, NewUserForm, RenewBookForm
+
+import datetime
+from django.http import HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
+from django.contrib.auth.decorators import permission_required
+
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
 
 # Create your views here.
 def index(request):
@@ -68,3 +76,50 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
+
+#@permission_required('catalog.can_mark_returned')
+def renew_book_librarian(request, pk):
+    book_instance = get_object_or_404(BookInstance, pk=pk)
+
+    if request.method == 'POST':
+        #create a form instance and populate it wit data from the request (binding)
+        form = RenewBookForm(request.POST)
+
+        if form.is_valid():
+            #process the data as required
+            book_instance.due_back = form.cleaned_data['renewal_date']
+            book_instance.save()
+
+            #redirect to an specific page (initial page in this case)
+            return HttpResponseRedirect(reverse('/'))
+    #if this is a GET or other method, create the default form
+    else:
+        proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
+        form = RenewBookForm(initial={'due_back': proposed_renewal_date})
+
+    context = {
+        'form': form,
+        'book_instance': book_instance
+    }
+
+    return render(request, 'catalog/book_renew_librarian.html', context)
+
+
+class AuthorCreate(CreateView):
+    model = Author
+    fields = '__all__'
+    initial = {'date_of_death': '05/01/2018'}
+
+class AuthorUpdate(UpdateView):
+    model = Author
+    fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+
+class AuthorDelete(DeleteView):
+    model = Author
+    success_url = reverse_lazy('authors')
+
+class BookCreate(CreateView):
+    model = Book
+    form_class = CreateBookForm
+    template_name='catalog/book_form.html'
+    success_url = reverse_lazy('books')
