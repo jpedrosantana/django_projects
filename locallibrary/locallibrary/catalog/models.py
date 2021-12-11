@@ -69,6 +69,7 @@ class BookInstance(models.Model):
 
     class Meta:
         ordering = ['due_back'] #ordenação
+        permissions = (('can_mark_returned' , 'Set book as returned'),) #define as permissões
     
     def __str__(self):
         """String for model object"""

@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from catalog.models import Book, Author, BookInstance, Genre #importa as classes
 from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from django.contrib.auth import login
 from django.contrib import messages
@@ -32,12 +32,15 @@ def index(request):
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
 
+    num_genres = Genre.objects.all().count()
+
     context = {
         'num_books': num_books,
         'num_instances': num_instances,
         'num_instances_available': num_instances_available,
         'num_authors': num_authors,
         'num_visits': num_visits,
+        'num_genres': num_genres,
     }
 
     #Render the HTML template index.html with data in the context variable
@@ -56,6 +59,7 @@ def register_requests(request):
     return render(request = request, template_name='register.html', context={'register_form': form})
 
 class BookListView(generic.ListView):
+    #Listas genéricas procura por model_name_list.html
     model = Book #view genérica consulta no banco de dados o modelo
     paginate_by = 10
 
@@ -76,6 +80,11 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
+
+class BorrowedListView(generic.ListView, PermissionRequiredMixin):
+    permission_required = 'catalog.can_mark_returned'
+    model = BookInstance
+    template_name = 'catalog/borrowed_list.html'
 
 #@permission_required('catalog.can_mark_returned')
 def renew_book_librarian(request, pk):
