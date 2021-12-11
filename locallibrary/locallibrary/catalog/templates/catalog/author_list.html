@@ -13,5 +13,8 @@
     {%else%}
         <p>There are no authors in the catalog</p>
     {%endif%}
+
+    {% if user.is_staff%}
     <li><a href="{% url 'author_create' %}">Author Create</a></li>
+    {% endif %}
 {% endblock %}

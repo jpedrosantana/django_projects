@@ -9,7 +9,12 @@
             <a href="{{book.get_absolute_url}}">{{book.title}}</a> ({{book.author}})
         </li>
         {% endfor %}
+        
+        
     </ul>
+        {% if user.is_staff %}
+            <li><a href="{% url 'create-book'%}">Register a Book</a></li>
+        {% endif %}
     {%else%}
         <p>There are no books in the library</p>
     {%endif%}

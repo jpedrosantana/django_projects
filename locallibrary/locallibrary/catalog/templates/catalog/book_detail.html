@@ -25,6 +25,10 @@
         <p class='text-muted'><strong>Id:</strong> {{copy.id}}</p>
     {% endfor %}
 
+    {% if user.is_staff %}
+        <li><a href="{% url 'book_delete' book.pk %}">Book Delete</a></li>
+        <li><a href="{% url 'book_update' book.pk %}">Book Update</a></li>
+    {% endif %}
 </div>
 
 {% endblock %}

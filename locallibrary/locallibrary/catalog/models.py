@@ -46,7 +46,7 @@ class Book(models.Model):
 
 class BookInstance(models.Model):
     """Representing a specific copy of a book"""
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this aprticular book')
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular book')
     book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True, blank=True)
