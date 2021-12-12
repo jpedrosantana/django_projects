@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
 import datetime
-from django.forms import ModelForm
-from catalog.models import BookInstance, Book, Genre
+from django.forms import ModelForm, widgets
+from catalog.models import BookInstance, Book, Genre, Author
 
 class NewUserForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -48,7 +48,58 @@ class CreateBookForm(ModelForm):
     class Meta:
         model = Book
         fields = ['title', 'author', 'summary', 'isbn', 'genre']
+        widgets = {
+            'title': forms.TextInput(attrs={'style': 'width: 50%'}),
+            'author': forms.TextInput(attrs={'style': 'width: 50%'}),
+            'summary': forms.Textarea(attrs={'style': 'width: 50%'}),
+            'isbn': forms.TextInput(attrs={'style': 'width: 50%'}),
+        }
+
         #labels = {'title': 'titulo', 'author': 'autor'}
+
+    genre = forms.ModelMultipleChoiceField(
+        queryset=Genre.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
+
+class CreateAuthorForm(ModelForm):
+    class Meta:
+        model = Author
+        fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+        widgets = {
+                'first_name': forms.TextInput(attrs={'style': 'width: 30%'}),
+                'last_name': forms.TextInput(attrs={'style': 'width: 30%'}),
+                'date_of_birth': forms.TextInput(attrs={'placeholder':'Ex: 1970-01-01', 'style': 'width: 30%'}),
+                'date_of_death': forms.TextInput(attrs={'placeholder':'Ex: 1970-01-01', 'style': 'width: 30%'}),
+            }
+
+class UpdateAuthorForm(ModelForm):
+    class Meta:
+        model = Author
+        fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+        widgets = {
+                'first_name': forms.TextInput(attrs={'style': 'width: 30%'}),
+                'last_name': forms.TextInput(attrs={'style': 'width: 30%'}),
+                'date_of_birth': forms.TextInput(attrs={'style': 'width: 30%'}),
+                'date_of_death': forms.TextInput(attrs={'style': 'width: 30%'}),
+            }
+
+class UpdateBookForm(ModelForm):
+    class Meta:
+        model = Book
+        fields = ['title', 'author', 'summary', 'isbn', 'genre']
+        widgets = {
+            'title': forms.TextInput(attrs={'style': 'width: 50%'}),
+            #'author': forms.TextInput(attrs={'style': 'width: 50%'}),
+            'summary': forms.Textarea(attrs={'style': 'width: 50%'}),
+            'isbn': forms.TextInput(attrs={'style': 'width: 50%'}),
+        }
+
+        #labels = {'title': 'titulo', 'author': 'autor'}
+    author = forms.ModelChoiceField(
+        queryset=Author.objects.all(),
+        widget=forms.Select(attrs={'style': 'width: 50%'})
+    )
 
     genre = forms.ModelMultipleChoiceField(
         queryset=Genre.objects.all(),

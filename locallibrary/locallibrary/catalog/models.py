@@ -8,7 +8,7 @@ from datetime import date
 # Create your models here.
 class Genre(models.Model):
     """Model representing a book genre"""
-    name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
+    name = models.CharField(max_length=20, help_text='Enter a book genre (e.g. Science Fiction)')
 
     def __str__(self) -> str:
         """String representing the Model object"""
@@ -18,7 +18,7 @@ class Genre(models.Model):
 
 class Book(models.Model):
     """Model representing a book"""
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=50)
 
     #Foreign Key, a book can only have one author, and multiples authors can have multiples books
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
@@ -48,7 +48,7 @@ class BookInstance(models.Model):
     """Representing a specific copy of a book"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular book')
     book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
-    imprint = models.CharField(max_length=200)
+    imprint = models.CharField(max_length=30)
     due_back = models.DateField(null=True, blank=True)
     borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -83,8 +83,8 @@ class BookInstance(models.Model):
 
 class Author(models.Model):
     """Model representing an author"""
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
     date_of_birth = models.DateField(null=True, blank=True)
     date_of_death = models.DateField('Died', null=True, blank=True)
 

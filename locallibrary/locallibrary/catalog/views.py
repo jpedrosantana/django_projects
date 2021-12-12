@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 
 from django.contrib.auth import login
 from django.contrib import messages
-from .forms import CreateBookForm, NewUserForm, RenewBookForm
+from .forms import CreateAuthorForm, CreateBookForm, NewUserForm, RenewBookForm, UpdateAuthorForm, UpdateBookForm
 
 import datetime
 from django.http import HttpResponseRedirect
@@ -13,6 +13,9 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import permission_required
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django import forms
+from django import http
+
 
 
 # Create your views here.
@@ -117,13 +120,17 @@ def renew_book_librarian(request, pk):
 class AuthorCreate(PermissionRequiredMixin, CreateView):
     permission_required = 'catalog.can_mark_returned'
     model = Author
-    fields = '__all__'
-    initial = {'date_of_death': '05/01/2018'}
+    form_class = CreateAuthorForm
+    #initial = {'date_of_death': '05/01/2018'}
+    template_name='catalog/author_form.html'
+    success_url = reverse_lazy('authors')
+
 
 class AuthorUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = 'catalog.can_mark_returned'
     model = Author
-    fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+    form_class = UpdateAuthorForm
+    #fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
 
 class AuthorDelete(PermissionRequiredMixin, DeleteView):
     #view Delete espera encontrar um arquivo de confirmação modelname_confirm_delete.html
@@ -141,11 +148,12 @@ class BookCreate(PermissionRequiredMixin, CreateView):
 class BookUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = 'catalog.can_mark_returned'
     model = Book
-    fields = ['title', 
-            'author',
-            'summary',
-            'isbn',
-            'genre',]
+    form_class = UpdateBookForm
+    #fields = ['title', 
+     #       'author',
+      #      'summary',
+       #     'isbn',
+        #    'genre',]
 
 class BookDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'catalog.can_mark_returned'
