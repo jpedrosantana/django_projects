@@ -3,7 +3,8 @@
 {% block content %}
 {% if user.is_staff %}
     {% if bookinstance_list %}
-    <ul>
+    <h1 class='display-4'>List of borrowed books</h1>
+    <ul class='list-unstyled'>
         {%for instance in bookinstance_list%}
         <li>
             <a href="{{instance.book.get_absolute_url}}">{{instance.book}}</a> ({{instance.due_back}}) - {{instance.borrower}} <a href="{% url 'renew-book-librarian' instance.id%}">Renew</a>

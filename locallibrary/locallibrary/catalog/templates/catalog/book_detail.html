@@ -4,8 +4,8 @@
 <h1>Title: {{book.title}}</h1>
 
 <p><strong>Author:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
-<p><strong>Summary:</strong>{{book.summary}}</p>
-<p><strong>ISBN:</strong>{{book.isbn}}</p>
+<p><strong>Summary:</strong> {{book.summary}}</p>
+<p><strong>ISBN:</strong> {{book.isbn}}</p>
 <!-- <p><strong>Language:</strong>{{book.language}}</p> -->
 <p><strong>Genre:</strong>{% for genre in book.genre.all %} {{genre}}{% if not forloop.last %}, {% endif %}{%endfor%}</p>
 
@@ -21,13 +21,13 @@
         {% if copy.status != 'a' %}
             <p><strong>Due to be returned:</strong> {{copy.due_back}}</p>
         {% endif %}
-        <p><strong>Imprint:</strong>{{copy.imprint}}</p>
+        <p><strong>Imprint:</strong> {{copy.imprint}}</p>
         <p class='text-muted'><strong>Id:</strong> {{copy.id}}</p>
     {% endfor %}
 
     {% if user.is_staff %}
-        <li><a href="{% url 'book_delete' book.pk %}">Book Delete</a></li>
-        <li><a href="{% url 'book_update' book.pk %}">Book Update</a></li>
+        <a class='btn btn-primary' href="{% url 'book_update' book.pk %}">Book Update</a></li>
+        <a class='btn btn-danger' href="{% url 'book_delete' book.pk %}">Book Delete</a></li>
     {% endif %}
 </div>
 

@@ -1,10 +1,10 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Borrowed books</h1>
+    <h1 class='display-4'>Borrowed books</h1>
 
     {% if bookinstance_list %}
-    <ul>
+    <ul class='list-unstyled'>
 
       {% for bookinst in bookinstance_list %}
       <li class="{% if bookinst.is_overdue %}text-danger{% endif %}">

@@ -4,11 +4,11 @@
 <h1>Title: {{author}}</h1>
 
 {% if author.date_of_birth %}
-    <p><strong>Birth:</strong>{{author.date_of_birth}}</p>
+    <p><strong>Birth:</strong> {{author.date_of_birth}}</p>
 {% endif %}
 
 {% if author.date_of_death %}
-    <p><strong>Died:</strong>{{author.date_of_death}}
+    <p><strong>Died:</strong> {{author.date_of_death}}
 {% endif %}
 
 <div style="margin-left:20px;margin-top:20px">
@@ -21,8 +21,8 @@
     {% endfor %}
 
     {% if user.is_staff %}
-        <li><a href="{% url 'author_delete' author.pk %}">Author Delete</a></li>
-        <li><a href="{% url 'author_update' author.pk %}">Author Update</a></li>
+        <a class='btn btn-primary' href="{% url 'author_update' author.pk %}">Author Update</a>
+        <a class='btn btn-danger' href="{% url 'author_delete' author.pk %}">Author Delete</a>
     {% endif %}
 </div>
 

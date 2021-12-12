@@ -1,19 +1,18 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h1>Book List</h1>
+<h1 class='display-4'>Book List</h1>
 {% if book_list %}
-    <ul>
+    <ul class='list-unstyled'>
         {%for book in book_list%}
         <li>
             <a href="{{book.get_absolute_url}}">{{book.title}}</a> ({{book.author}})
         </li>
-        {% endfor %}
-        
+        {% endfor %}   
         
     </ul>
         {% if user.is_staff %}
-            <li><a href="{% url 'create-book'%}">Register a Book</a></li>
+            <a class='btn btn-primary btn-sm' href="{% url 'create-book'%}">Register a Book</a>
         {% endif %}
     {%else%}
         <p>There are no books in the library</p>
