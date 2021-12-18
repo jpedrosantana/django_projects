@@ -2,27 +2,29 @@
 
 {% block content %}
 
+{% load crispy_forms_tags %}
+
 <div class='container py-5'>
-    <h1>Register</h1>
+    <h1 class='display-4'>Register</h1>
     <form method='POST'>
         {% csrf_token %}
         
         <table>
             <tr>
-                <td>{{ register_form.username.label_tag }}</td>
-                <td>{{ register_form.username }}</td>
+                
+                <td>{{ register_form.username|as_crispy_field }}</td>
             </tr>
             <tr>
-              <td>{{ register_form.password1.label_tag }}</td>
-              <td>{{ register_form.password1 }}</td>
+              
+              <td>{{ register_form.password1|as_crispy_field }}</td>
             </tr>
             <tr>
-                <td>{{ register_form.password2.label_tag }}</td>
-                <td>{{ register_form.password2 }}</td>
+                
+                <td>{{ register_form.password2|as_crispy_field }}</td>
               </tr>
               <tr>
-                <td>{{ register_form.email.label_tag }}</td>
-                <td>{{ register_form.email }}</td>
+                
+                <td>{{ register_form.email|as_crispy_field }}</td>
             </tr>
           </table>
         <button class='btn btn-primary' type='submit'>Register</button>

@@ -4,8 +4,9 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
 import datetime
-from django.forms import ModelForm, widgets
+from django.forms import ModelForm
 from catalog.models import BookInstance, Book, Genre, Author
+from crispy_forms.helper import FormHelper
 
 class NewUserForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -13,6 +14,8 @@ class NewUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ("username", "email", "password1", "password2")
+        
+        
 
     def save(self, commit = True):
         user = super(NewUserForm, self).save(commit=False)
