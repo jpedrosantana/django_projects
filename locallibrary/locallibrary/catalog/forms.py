@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
 import datetime
-from django.forms import ModelForm
+from django.forms import ModelForm, widgets
 from catalog.models import BookInstance, Book, Genre, Author
 from crispy_forms.helper import FormHelper
 
@@ -51,6 +51,12 @@ class LoanBookForm(ModelForm):
     class Meta:
         model = BookInstance
         fields = ['book', 'imprint', 'due_back', 'borrower', 'status']
+        widgets = {
+            'imprint': forms.TextInput(attrs={'style': 'width: 50%'},),
+            'due_back': forms.TextInput(attrs={'style': 'width: 50%'}),
+            'borrower': forms.Select(attrs={"style": 'width: 50%'}),
+            'status': forms.Select(attrs={'style': 'width: 50%'})
+        }
 
     book = forms.ModelChoiceField(
         queryset=BookInstance.objects.all().filter(status = 'a'),
@@ -61,11 +67,18 @@ class CreateBookCopyForm(ModelForm):
     class Meta:
         model = BookInstance
         fields = ['book', 'imprint', 'due_back', 'borrower', 'status']
+        widgets = {
+            'imprint': forms.TextInput(attrs={'style': 'width: 50%'}),
+            'due_back': forms.TextInput(attrs={'style': 'width: 50%'}),
+            'borrower': forms.Select(attrs={"style": 'width: 50%'}),
+            'status': forms.Select(attrs={'style': 'width: 50%'})
+        }
 
-    #book = forms.ModelChoiceField(
-        #queryset=Book.objects.all().filter(title = Book.title),
-        #widget=forms.Select(attrs={'style': 'width: 50%'})
-    #)
+    book = forms.ModelChoiceField(
+        queryset=Book.objects.all(),
+        widget=forms.Select(attrs={'style': 'width: 50%'})
+    )
+
 
 class CreateBookForm(ModelForm):
     class Meta:

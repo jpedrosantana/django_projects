@@ -26,7 +26,6 @@
     {% endfor %}
 
     {% if user.is_staff %}
-        <a class='btn btn-success' href="{% url 'book-copy' book.pk %}">Create a Copy</a>
         <a class='btn btn-primary' href="{% url 'book_update' book.pk %}">Book Update</a>
         <a class='btn btn-danger' href="{% url 'book_delete' book.pk %}">Book Delete</a>
     {% endif %}

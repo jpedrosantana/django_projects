@@ -77,6 +77,10 @@
   background: #eee;
 }
 
+.form-head{
+  margin-top: 2%;
+}
+
 </style>
 
 <body>
@@ -101,6 +105,7 @@
               <li><strong>Staff</strong></li>
                 <li><a href="{% url 'borrowed'%}">All borrowed</a></li>
                 <li><a href="{% url 'loan'%}">Loan a Book</a></li>
+                <li><a href="{% url 'book-copy' %}">Register a Copy</a></li>
               {% endif %}
           </ul>
         {% endblock %}

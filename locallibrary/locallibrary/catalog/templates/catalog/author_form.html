@@ -3,11 +3,17 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-  <form action="" method="post">
-    {% csrf_token %}
-    <table>
-    {{ form|crispy }}
-    </table>
-    <input class='btn btn-primary' type="submit" value="Submit">
-  </form>
-{% endblock %}
+  <div class='container-fluid'>
+    <h2 class='form-head'>Fill the form below to register or update an Author</h2>
+    <hr>
+    
+    <form action="" method="post">
+      {% csrf_token %}
+      <table>
+      {{ form|crispy }}
+      </table>
+      <input class='btn btn-primary' type="submit" value="Submit">
+    </form>
+  </div>
+
+  {% endblock %}
