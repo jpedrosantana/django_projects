@@ -17,4 +17,6 @@ urlpatterns = [
     path('author/<int:pk>/update/', views.AuthorUpdate.as_view(), name='author_update'),
     path('author/<int:pk>/delete/', views.AuthorDelete.as_view(), name='author_delete'),
     path('borrowed', views.BorrowedListView.as_view(), name='borrowed'),
+    path('loan', views.LoanBookCreate.as_view(), name='loan'),
+    path('book/<int:pk>/copy/', views.CreateBookCopy.as_view(), name='book-copy'),
 ]

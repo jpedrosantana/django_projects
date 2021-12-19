@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 
 from django.contrib.auth import login
 from django.contrib import messages
-from .forms import CreateAuthorForm, CreateBookForm, NewUserForm, RenewBookForm, UpdateAuthorForm, UpdateBookForm
+from .forms import CreateAuthorForm, CreateBookForm, NewUserForm, RenewBookForm, UpdateAuthorForm, UpdateBookForm, LoanBookForm, CreateBookCopyForm
 
 import datetime
 from django.http import HttpResponseRedirect
@@ -116,6 +116,19 @@ def renew_book_librarian(request, pk):
 
     return render(request, 'catalog/book_renew_librarian.html', context)
 
+class LoanBookCreate(PermissionRequiredMixin, CreateView):
+    permission_required = 'catalog.can_mark_returned'
+    model = BookInstance
+    form_class = LoanBookForm
+    template_name = 'catalog/loan_form.html'
+    success_url = reverse_lazy('borrowed')
+
+class CreateBookCopy(PermissionRequiredMixin, CreateView):
+    permission_required = 'catalog.can_mark_returned'
+    model = BookInstance
+    form_class = CreateBookCopyForm
+    template_name = 'catalog/book_copy.html'
+    success_url = reverse_lazy('books')
 
 class AuthorCreate(PermissionRequiredMixin, CreateView):
     permission_required = 'catalog.can_mark_returned'

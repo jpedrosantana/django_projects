@@ -32,7 +32,7 @@ class RenewBookForm(ModelForm):
         labels = {'due_back': _('New renewal date')}
         help_texts = {'due_back': _('Enter a date between now and 4 weeks (default = 3)')}
 
-    #Easiest way to validate a field is to modify the clean_<dieldname>() method.
+    #Easiest way to validate a field is to modify the clean_<fieldname>() method.
     def clean_due_back(self):
         data = self.cleaned_data['due_back']
 
@@ -47,6 +47,26 @@ class RenewBookForm(ModelForm):
         #Always return cleaned data
         return data
 
+class LoanBookForm(ModelForm):
+    class Meta:
+        model = BookInstance
+        fields = ['book', 'imprint', 'due_back', 'borrower', 'status']
+
+    book = forms.ModelChoiceField(
+        queryset=BookInstance.objects.all().filter(status = 'a'),
+        widget=forms.Select(attrs={'style': 'width: 50%'})
+    )
+
+class CreateBookCopyForm(ModelForm):
+    class Meta:
+        model = BookInstance
+        fields = ['book', 'imprint', 'due_back', 'borrower', 'status']
+
+    #book = forms.ModelChoiceField(
+        #queryset=Book.objects.all().filter(title = Book.title),
+        #widget=forms.Select(attrs={'style': 'width: 50%'})
+    #)
+
 class CreateBookForm(ModelForm):
     class Meta:
         model = Book
@@ -58,7 +78,10 @@ class CreateBookForm(ModelForm):
             'isbn': forms.TextInput(attrs={'style': 'width: 50%'}),
         }
 
-        #labels = {'title': 'titulo', 'author': 'autor'}
+    author = forms.ModelChoiceField(
+        queryset=Author.objects.all(),
+        widget=forms.Select(attrs={'style': 'width: 50%'})
+    )
 
     genre = forms.ModelMultipleChoiceField(
         queryset=Genre.objects.all(),
